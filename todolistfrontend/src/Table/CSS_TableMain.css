@@ -1,0 +1,26 @@
+.container-md{
+  font-size: large;
+  font-weight: bolder;
+  background-color: pink;
+}
+.RowConfig{
+  height: 2vw;
+}
+.todos-rows{
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  height: 2.5vw;
+}
+.todos-rows-col{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.actions-col > img{
+  margin: 0 0.5vw;
+}
+.actions-col > img:hover{
+  cursor: pointer;
+}
+.col, .col-sm-8{
+  border: 3px solid black;
+}
