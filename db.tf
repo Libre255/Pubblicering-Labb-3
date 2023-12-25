@@ -14,7 +14,7 @@ resource "azurerm_cosmosdb_account" "cosmos-account" {
     failover_priority = 0
   }
 
-  depends_on = [azurerm_resource_group.rg-arkitektur-labb3]
+  depends_on = [azurerm_resource_group.rg-pubblicering-labb3]
 }
 
 resource "azurerm_cosmosdb_sql_database" "cosmos-db" {

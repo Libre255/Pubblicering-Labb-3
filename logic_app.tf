@@ -13,7 +13,7 @@ resource "azurerm_api_connection" "office365" {
   lifecycle {
     ignore_changes = [parameter_values]
   }
-  depends_on = [azurerm_resource_group.rg-arkitektur-labb3]
+  depends_on = [azurerm_resource_group.rg-pubblicering-labb3]
 }
 #Logic App Workflow
 resource "azurerm_logic_app_workflow" "logic-app-workflow" {
@@ -38,7 +38,7 @@ resource "azurerm_logic_app_workflow" "logic-app-workflow" {
     })
   }
 
-  depends_on = [azurerm_resource_group.rg-arkitektur-labb3]
+  depends_on = [azurerm_resource_group.rg-pubblicering-labb3]
 }
 
 resource "azurerm_logic_app_trigger_http_request" "logic-app-request-endpoint" {

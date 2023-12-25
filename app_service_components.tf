@@ -4,7 +4,7 @@ resource "azurerm_service_plan" "sevice-plan" {
   location            = local.rg-location
   sku_name            = "S1"
   os_type             = "Linux"
-  depends_on          = [azurerm_resource_group.rg-arkitektur-labb3]
+  depends_on          = [azurerm_resource_group.rg-pubblicering-labb3]
 }
 
 resource "azurerm_linux_web_app" "webb-app" {

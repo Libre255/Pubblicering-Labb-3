@@ -11,12 +11,12 @@ provider "azurerm" {
   features {}
 }
 
-resource "azurerm_resource_group" "rg-arkitektur-labb3" {
-  name     = "rg-arkitektur-labb3-bv"
+resource "azurerm_resource_group" "rg-pubblicering-labb3" {
+  name     = "rg-pubblicering-labb3-bv"
   location = "West Europe"
 }
 
 locals {
-  rg-name     = azurerm_resource_group.rg-arkitektur-labb3
-  rg-location = azurerm_resource_group.rg-arkitektur-labb3.location
+  rg-name     = azurerm_resource_group.rg-pubblicering-labb3.name
+  rg-location = azurerm_resource_group.rg-pubblicering-labb3.location
 }
