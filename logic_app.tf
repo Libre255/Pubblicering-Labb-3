@@ -90,9 +90,7 @@ resource "azurerm_logic_app_action_custom" "read-http-reponse" {
   logic_app_id = azurerm_logic_app_workflow.logic-app-workflow.id
   body         = <<BODY
  {
-  "runAfter": {
-    "logic-app-request-endpoint-bv": ["Succeeded"]
-  },
+  "runAfter": {},
   "type": "ParseJson",
   "description": "Read the HTTP response and make it into a Logic App code so it can be used with functions",
   "inputs": {

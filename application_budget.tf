@@ -13,8 +13,8 @@ resource "azurerm_consumption_budget_resource_group" "app-budget" {
   time_grain = "Monthly"
 
   time_period {
-    start_date = "2023-12-23T00:00:00Z"
-    end_date   = "2024-12-23T00:00:00Z"
+    start_date = "2023-12-01T00:00:00Z"
+    end_date   = "2024-12-01T00:00:00Z"
   }
 
   notification {

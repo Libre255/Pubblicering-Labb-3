@@ -23,26 +23,26 @@ resource "azurerm_key_vault" "key-vault" {
       "Recover"
     ]
   }
-  depends_on = [ azurerm_resource_group.rg-pubblicering-labb3]
+  depends_on = [azurerm_resource_group.rg-pubblicering-labb3]
 }
 
 resource "azurerm_key_vault_secret" "cosmos-kv-endpoint" {
   name         = "cosmos-kv-endpoint-bv"
   value        = azurerm_cosmosdb_account.cosmos-account.endpoint
   key_vault_id = azurerm_key_vault.key-vault.id
-  depends_on = [ azurerm_key_vault.key-vault ]
+  depends_on   = [azurerm_key_vault.key-vault]
 }
 
 resource "azurerm_key_vault_secret" "cosmos-kv-pk" {
   name         = "cosmos-kv-pk-bv"
   value        = azurerm_cosmosdb_account.cosmos-account.primary_key
   key_vault_id = azurerm_key_vault.key-vault.id
-  depends_on = [ azurerm_key_vault.key-vault ]
+  depends_on   = [azurerm_key_vault.key-vault]
 }
 
 resource "azurerm_key_vault_secret" "cosmos-kv-db-name" {
   name         = "cosmos-kv-db-name-bv"
   value        = azurerm_cosmosdb_sql_database.cosmos-db.name
   key_vault_id = azurerm_key_vault.key-vault.id
-  depends_on = [ azurerm_key_vault.key-vault ]
+  depends_on   = [azurerm_key_vault.key-vault]
 }
