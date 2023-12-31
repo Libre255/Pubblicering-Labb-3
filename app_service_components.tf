@@ -19,6 +19,10 @@ resource "azurerm_linux_web_app" "webb-app" {
     }
   }
 
+  identity {
+    type = "SystemAssigned"
+  }
+
   #Database
   connection_string {
     name = "Database"
@@ -37,6 +41,10 @@ resource "azurerm_linux_web_app" "webb-app" {
 resource "azurerm_linux_web_app_slot" "webb-app-slot" {
   name           = "todo-webb-app-slot-bv"
   app_service_id = azurerm_linux_web_app.webb-app.id
+
+  identity {
+    type = "SystemAssigned"
+  }
 
   site_config {
     application_stack {
