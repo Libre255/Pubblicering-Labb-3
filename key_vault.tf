@@ -13,7 +13,7 @@ resource "azurerm_key_vault" "key-vault" {
 
   access_policy {
     tenant_id = data.azurerm_client_config.current.tenant_id
-    object_id = data.azurerm_client_config.current.object_id
+    object_id = azurerm_linux_web_app.webb-app.identity[0].principal_id
 
     secret_permissions = [
       "Set",
