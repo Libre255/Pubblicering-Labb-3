@@ -12,14 +12,6 @@ namespace todo_api_publabb2.Data
             _configuration = configuration;
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            var cosmosEndPoint = _configuration["cosmos-kv-endpoint-bv"];
-            var cosmosPrimaryKey = _configuration["cosmos-kv-pk-bv"];
-            var cosmosDatabaseName = _configuration["cosmos-kv-db-name-bv"];
-            optionsBuilder.UseCosmos(cosmosEndPoint, cosmosPrimaryKey, cosmosDatabaseName);
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Todo>()
