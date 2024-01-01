@@ -17,7 +17,8 @@ namespace todo_api_publabb2.Data
             modelBuilder.Entity<Todo>()
                         .ToContainer("todo-cosmos-container-bv")
                         .HasPartitionKey(c => c.id);
+
         }
 
-    }
+    } 
 }
