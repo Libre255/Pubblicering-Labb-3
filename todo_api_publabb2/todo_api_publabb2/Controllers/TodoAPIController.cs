@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using todo_api_publabb2.Models;
 using todo_api_publabb2.Services;
 
 namespace todo_api_publabb2.Controllers
@@ -8,17 +9,19 @@ namespace todo_api_publabb2.Controllers
     [ApiController]
     public class SuperHeroController : ControllerBase
     {
-        private readonly ITodosAPI _todo_service;
+        private ITodosAPI<Todo> _todo_service;
 
-        public SuperHeroController(ITodosAPI todoService)
+        public SuperHeroController(ITodosAPI<Todo> todoService)
         {
             _todo_service = todoService;
+            _todo_service.AddSeed();
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Todo>>> GetAllTodos()
+        public async Task<ActionResult<IEnumerable<Todo>>> GetAllTodos()
         {
-            return await _todo_service.GetAllTodos();
+            var result = await _todo_service.GetAllTodos();
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
@@ -32,7 +35,7 @@ namespace todo_api_publabb2.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<Todo>>> AddTodo(Todo todo)
+        public async Task<ActionResult<Todo>> AddTodo(Todo todo)
         {
             var result = await _todo_service.AddTodo(todo);
             return Ok(result);

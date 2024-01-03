@@ -1,11 +1,12 @@
 ﻿namespace todo_api_publabb2.Services
 {
-    public interface ITodosAPI
+    public interface ITodosAPI<T>
     {
-        Task<List<Todo>> GetAllTodos();
+        Task<IEnumerable<Todo>> GetAllTodos();
         Task<Todo?> GetSingleTodo(int id);
-        Task<List<Todo>> AddTodo(Todo hero);
+        Task<Todo> AddTodo(Todo hero);
         Task<List<Todo>?> UpdateTodo(int id, Todo request);
         Task<List<Todo>?> DeleteTodo(int id);
+        void AddSeed();
     }
 }
