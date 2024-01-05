@@ -25,7 +25,7 @@ namespace todo_api_publabb2.Services
         }
 
         public async Task<Todo> AddTodo(Todo _todo)
-        {
+            {
             var response =  await _context.CreateItemAsync<Todo>(item: _todo, new PartitionKey(_todo.id.ToString()));
 
             return response.Resource;

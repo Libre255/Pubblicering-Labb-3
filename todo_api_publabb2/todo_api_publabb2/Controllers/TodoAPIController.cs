@@ -35,9 +35,15 @@ namespace todo_api_publabb2.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Todo>> AddTodo(Todo todo)
+        public async Task<ActionResult<Todo>> AddTodo(TodoAPIData todo)
         {
-            var result = await _todo_service.AddTodo(todo);
+            Todo NewTodo = new()
+            {
+                title = todo.title,
+                content = todo.content,
+                done = todo.done
+            };
+            var result = await _todo_service.AddTodo(NewTodo);
             return Ok(result);
         }
 

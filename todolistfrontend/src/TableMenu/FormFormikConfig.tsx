@@ -1,6 +1,7 @@
 import * as formik from 'formik';
 import * as yup from 'yup';
 import FormInputs from './FormInputs';
+import axios from 'axios';
 
 interface Props{
   CreateBtnStatus: React.Dispatch<React.SetStateAction<boolean>>;
@@ -20,8 +21,10 @@ const CreateTodoForm:React.FC<Props> = ({CreateBtnStatus, setSubmitAction}) =>{
     done: false
   }
 
-  const Submit = (values:any)=> {
-    console.log(values)
+  const Submit = async (values:any)=> {
+    const data = await axios.post("https://localhost:44305/api/SuperHero", values);
+    // const dataJson = await data.data;
+    // console.log(dataJson)
   }
 
   return (

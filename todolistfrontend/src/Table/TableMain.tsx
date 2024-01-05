@@ -8,11 +8,11 @@ import { TableMenu } from '../TableMenu/TableMenu'
 import useTodos from '../Hooks/useTodos'
 
 const TableMain:React.FC = () => {
-  const {todosList} = useTodos();
+  const {todosList, settoggleForUpdate} = useTodos();
 
   return (
     <Container fluid="md" >
-      <TableMenu/>
+      <TableMenu settoggleForUpdate={settoggleForUpdate}/>
       <Row className='RowConfig'>
         <Col sm={8}>Name</Col>
         <Col>Done</Col>

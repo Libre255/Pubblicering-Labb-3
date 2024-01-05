@@ -7,6 +7,16 @@ var CosmosKEY = builder.Configuration.GetSection("COSMOSDB")["KEY"];
 var CosmosDATABASE = builder.Configuration.GetSection("COSMOSDB")["DATABASE"];
 var CosmosCONTAINER = builder.Configuration.GetSection("COSMOSDB")["CONTAINER"];
 
+string policyName = "ReacPolicy";
+builder.Services.AddCors(policy =>
+{
+    policy.AddPolicy(name: policyName, p => {
+        p.WithOrigins("http://localhost:3000")
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials();
+    });
+});
 // Add services to the container.
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -22,7 +32,7 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpsRedirection();
-
+app.UseCors(policyName);
 app.UseAuthorization();
 
 app.MapControllers();

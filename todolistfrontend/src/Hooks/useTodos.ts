@@ -1,8 +1,10 @@
-import getTodosService, { ITodos } from "../Services/getTodosService"
+import { ITodos } from "../Data/ITodos";
+import getTodosService from "../Services/getTodosService"
 import { useEffect, useState } from "react";
 
 const useTodos = () => {
  const [todosList, setTodosList] = useState<ITodos[]>([])
+ const [toggleForUpdate, settoggleForUpdate] = useState<boolean>(false)
  const [error, setError] = useState<Error>();
 
  useEffect(() => {
@@ -17,9 +19,10 @@ const useTodos = () => {
     }
    }
    fetching();
- }, [])
+   console.log("Fetching!")
+ }, [toggleForUpdate])
 
- return { todosList, setTodosList, error}
+ return { todosList, setTodosList, error, settoggleForUpdate}
 }
 
 export default useTodos;

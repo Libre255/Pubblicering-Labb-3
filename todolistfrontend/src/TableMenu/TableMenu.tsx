@@ -1,10 +1,13 @@
 import {useState} from 'react'
-import { Button, Col, Container, Form, InputGroup, Row } from 'react-bootstrap'
+import { Button, Col, Form, InputGroup, Row } from 'react-bootstrap'
 import { CreateModal } from './CreateModal'
 
-export const TableMenu = () => {
+interface Props{
+  settoggleForUpdate:React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export const TableMenu:React.FC<Props> = ({settoggleForUpdate}) => {
   const [show, setShow] = useState(false)
-  // const handleOpen = ()=>setShow(true);
 
   return (
     <>
@@ -26,7 +29,7 @@ export const TableMenu = () => {
           <Button variant="info" className=' w-50' onClick={()=>setShow(true)}>Create</Button>
         </Col>
       </Row>
-      <CreateModal show={show} handleClose={()=>setShow(false)}/>
+      <CreateModal show={show} handleClose={()=>setShow(false)} settoggleForUpdate={settoggleForUpdate}/>
     </>
     )
 }
