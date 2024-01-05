@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { Button, Modal } from 'react-bootstrap'
-import CreateTodoForm from './CreateTodoForm';
+import FormFormikConfig from './FormFormikConfig';
 
 interface Props{
   show:boolean;
@@ -8,21 +8,26 @@ interface Props{
 }
 
 export const CreateModal:React.FC<Props> = ({show, handleClose}) => {
-  const [disableCreateBtn, SetDisableCreateBtn ] = useState(false);
+  const [CreateBtnStatus, SetCreateBtnStatus ] = useState(false);
+  const [submitAction, setSubmitAction] = useState<()=>void>(()=>{});
 
+  const OnCreateClick = ()=> {
+    submitAction();
+    handleClose();
+  }
   return (
     <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false} centered>
       <Modal.Header closeButton>
         <Modal.Title>Create a todo</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <CreateTodoForm setCreateBtn={SetDisableCreateBtn}/>
+        <FormFormikConfig CreateBtnStatus={SetCreateBtnStatus} setSubmitAction={setSubmitAction}/>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
-        <Button variant="primary" type='submit' form='create-form' disabled={disableCreateBtn} onClick={handleClose}>
+        <Button variant="primary" type='submit' form='create-form' disabled={CreateBtnStatus} onClick={OnCreateClick}>
           Create
         </Button>
       </Modal.Footer>

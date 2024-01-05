@@ -4,7 +4,7 @@ import { CreateModal } from './CreateModal'
 
 export const TableMenu = () => {
   const [show, setShow] = useState(false)
-  const handleOpen = ()=>setShow(true);
+  // const handleOpen = ()=>setShow(true);
 
   return (
     <>
@@ -23,7 +23,7 @@ export const TableMenu = () => {
         </Col>
 
         <Col className='d-flex justify-content-center py-2'>
-          <Button variant="info" className=' w-50' onClick={()=>handleOpen()}>Create</Button>
+          <Button variant="info" className=' w-50' onClick={()=>setShow(true)}>Create</Button>
         </Col>
       </Row>
       <CreateModal show={show} handleClose={()=>setShow(false)}/>
