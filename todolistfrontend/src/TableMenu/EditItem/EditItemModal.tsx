@@ -1,38 +1,39 @@
 import React, { useState } from 'react'
 import { Button, Modal } from 'react-bootstrap'
-import FormFormikConfig from './FormFormikConfig';
-import useTodos from '../Hooks/useTodos';
+import EditFormFormikConfig from './EditFormFormikConfig';
+import { ITodos } from '../../Data/ITodos';
 
 interface Props{
+  todo:ITodos;
   show:boolean;
   handleClose:()=>void;
   settoggleForUpdate:React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const CreateModal:React.FC<Props> = ({show, handleClose, settoggleForUpdate}) => {
-  const [CreateBtnStatus, SetCreateBtnStatus ] = useState(false);
+export const EditItemModal:React.FC<Props> = ({todo, show, handleClose, settoggleForUpdate}) => {
+  const [EditBtnStatus, SetEditBtnStatus ] = useState(false);
   const [submitAction, setSubmitAction] = useState<()=>void>(()=>{});
 
   const OnCreateClick = ()=> {
     submitAction();
-    handleClose();
     settoggleForUpdate((prevalue)=>!prevalue);
+    handleClose();
   }
-
+  
   return (
     <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Create a todo</Modal.Title>
+        <Modal.Title>Edit a todo</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <FormFormikConfig CreateBtnStatus={SetCreateBtnStatus} setSubmitAction={setSubmitAction}/>
+        <EditFormFormikConfig todo={todo} SetEditBtnStatus={SetEditBtnStatus} setSubmitAction={setSubmitAction}/>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
-        <Button variant="primary" form='create-form' disabled={CreateBtnStatus} onClick={OnCreateClick}>
-          Create
+        <Button variant="primary" form='create-form' disabled={EditBtnStatus} onClick={OnCreateClick}>
+          Save edit
         </Button>
       </Modal.Footer>
     </Modal>

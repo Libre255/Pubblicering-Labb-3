@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import { Button, Col, Form, InputGroup, Row } from 'react-bootstrap'
-import { CreateModal } from './CreateModal'
+import { CreateModal } from './CreateItem/CreateModal'
 
 interface Props{
   settoggleForUpdate:React.Dispatch<React.SetStateAction<boolean>>

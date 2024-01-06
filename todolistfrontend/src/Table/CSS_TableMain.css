@@ -10,6 +10,9 @@
   font-family: Georgia, 'Times New Roman', Times, serif;
   height: 2.5vw;
 }
+.todos-rows:hover{
+  cursor: pointer;
+}
 .todos-rows-col{
   display: flex;
   justify-content: center;

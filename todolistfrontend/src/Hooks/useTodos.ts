@@ -19,7 +19,6 @@ const useTodos = () => {
     }
    }
    fetching();
-   console.log("Fetching!")
  }, [toggleForUpdate])
 
  return { todosList, setTodosList, error, settoggleForUpdate}
