@@ -12,7 +12,7 @@ import { ITodos } from '../Data/ITodos'
 import axios from 'axios'
 
 const TableMain:React.FC = () => {
-  const {todosList, settoggleForUpdate} = useTodos();
+  const {todosList, setTodosList, settoggleForUpdate} = useTodos();
   const [showTodo, setShowTodo] = useState(false)
   const [SelectedTodo, setSelectedTodo] = useState<ITodos>();
 
@@ -21,7 +21,15 @@ const TableMain:React.FC = () => {
     setShowTodo(true);
   }
   const onDeletIconClick = async (id:string)=>{
-    const req = await axios.delete(`https://localhost:44305/api/SuperHero/${id}`);
+    await axios.delete(`https://localhost:44305/api/SuperHero/${id}`);
+    settoggleForUpdate(t => !t);
+  }
+  const onDoneCheck = async (todo:ITodos, done:boolean)=>{
+    const UpdateDoneTodo:ITodos = {
+      ...todo,
+      done
+    }
+    await axios.put(`https://localhost:44305/api/SuperHero/${todo.id}`, UpdateDoneTodo);
     settoggleForUpdate(t => !t);
   }
 
@@ -37,8 +45,8 @@ const TableMain:React.FC = () => {
         <React.Fragment key={todo.id}>
           <Row className='todos-rows' >
             <Col sm={8} className='todos-rows-col' onClick={()=>onClickTodo(todo)}>{todo.title}</Col>
-            <Col className='todos-rows-col'>
-              {todo.done ? <img src={doneicon} alt="doneIcon"/> : <img src={notdoneIcon} alt="notdoneicon"/> }
+            <Col className='todos-rows-col doneIcons'>
+              {todo.done ? <img src={doneicon} alt="doneIcon" onClick={()=>onDoneCheck(todo, false)}/> : <img src={notdoneIcon} alt="notdoneicon" onClick={()=>onDoneCheck(todo, true)}/> }
             </Col>
             <Col className='todos-rows-col actions-col'>
               <img src={editicon} alt='edit icon' onClick={()=>onClickTodo(todo)}/>
