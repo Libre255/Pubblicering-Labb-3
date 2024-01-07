@@ -1,7 +1,7 @@
 import { Col, Container, Row } from 'react-bootstrap'
 import "./CSS_TableMain.css"
 import trashIcon from './SVG/trashicon.svg'
-import editIcon from './SVG/editicon.svg'
+import editicon from './SVG/editicon.svg'
 import notdoneIcon from './SVG/notdoneicon.svg'
 import doneicon from './SVG/doneicon.svg'
 import { TableMenu } from '../TableMenu/TableMenu'
@@ -20,13 +20,14 @@ const TableMain:React.FC = () => {
     setSelectedTodo(_todo);
     setShowTodo(true);
   }
-  const onDeletIconClick = (id:string)=>{
-    const req = axios.delete(`https://localhost:44305/api/SuperHero/${id}`);
+  const onDeletIconClick = async (id:string)=>{
+    const req = await axios.delete(`https://localhost:44305/api/SuperHero/${id}`);
+    settoggleForUpdate(t => !t);
   }
 
   return (
     <Container fluid="md" >
-      <TableMenu settoggleForUpdate={settoggleForUpdate}/>
+      <TableMenu settoggleForUpdate={settoggleForUpdate} todosList={todosList}/>
       <Row className='RowConfig'>
         <Col sm={8}>Name</Col>
         <Col>Done</Col>
@@ -40,7 +41,7 @@ const TableMain:React.FC = () => {
               {todo.done ? <img src={doneicon} alt="doneIcon"/> : <img src={notdoneIcon} alt="notdoneicon"/> }
             </Col>
             <Col className='todos-rows-col actions-col'>
-              <img src={editIcon} alt='edit icon'/>
+              <img src={editicon} alt='edit icon' onClick={()=>onClickTodo(todo)}/>
               <img src={trashIcon} alt='trash icon' onClick={()=>onDeletIconClick(todo.id)}/>
             </Col>
           </Row>

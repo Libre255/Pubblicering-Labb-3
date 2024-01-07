@@ -10,7 +10,7 @@
   font-family: Georgia, 'Times New Roman', Times, serif;
   height: 2.5vw;
 }
-.todos-rows:hover{
+.todos-rows-col:first-child:hover{
   cursor: pointer;
 }
 .todos-rows-col{
@@ -26,4 +26,8 @@
 }
 .col, .col-sm-8{
   border: 3px solid black;
+}
+
+.mailicon:hover{
+ cursor: pointer;
 }

@@ -40,9 +40,11 @@ const EditFormInput: React.FC<Props> = (Props) => {
         </Form.Group>
       </Row>
       <Row className="mb-3">
-        <Form.Group as={Col} md="6" controlId="validationFormik03">
+        <Form.Group as={Col} md="12" controlId="validationFormik03">
           <Form.Label>Content</Form.Label>
           <Form.Control
+            as="textarea"
+            rows={3}
             type="text"
             placeholder="Content"
             name="content"

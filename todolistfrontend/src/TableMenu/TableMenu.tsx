@@ -1,13 +1,14 @@
-import {useState} from 'react'
 import { Button, Col, Form, InputGroup, Row } from 'react-bootstrap'
-import { CreateModal } from './CreateItem/CreateModal'
+import { ITodos } from '../Data/ITodos'
+import CreateItem from './CreateItem/CreateItem';
+import MailTodos from './MailTodos/MailTodos';
 
 interface Props{
   settoggleForUpdate:React.Dispatch<React.SetStateAction<boolean>>
+  todosList:ITodos[];
 }
 
-export const TableMenu:React.FC<Props> = ({settoggleForUpdate}) => {
-  const [show, setShow] = useState(false)
+export const TableMenu:React.FC<Props> = ({settoggleForUpdate, todosList}) => {
 
   return (
     <>
@@ -24,12 +25,9 @@ export const TableMenu:React.FC<Props> = ({settoggleForUpdate}) => {
             </Button>
           </InputGroup>
         </Col>
-
-        <Col className='d-flex justify-content-center py-2'>
-          <Button variant="info" className=' w-50' onClick={()=>setShow(true)}>Create</Button>
-        </Col>
+        <CreateItem settoggleForUpdate={settoggleForUpdate}/>
+        <MailTodos todosList={todosList}/>
       </Row>
-      <CreateModal show={show} handleClose={()=>setShow(false)} settoggleForUpdate={settoggleForUpdate}/>
     </>
     )
 }
