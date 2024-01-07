@@ -4,11 +4,12 @@ import CreateItem from './CreateItem/CreateItem';
 import MailTodos from './MailTodos/MailTodos';
 
 interface Props{
-  settoggleForUpdate:React.Dispatch<React.SetStateAction<boolean>>
+  settoggleForUpdate:React.Dispatch<React.SetStateAction<boolean>>;
+  setSearchInput: React.Dispatch<React.SetStateAction<string>>;
   todosList:ITodos[];
 }
 
-export const TableMenu:React.FC<Props> = ({settoggleForUpdate, todosList}) => {
+export const TableMenu:React.FC<Props> = ({settoggleForUpdate, setSearchInput ,todosList}) => {
 
   return (
     <>
@@ -16,13 +17,11 @@ export const TableMenu:React.FC<Props> = ({settoggleForUpdate, todosList}) => {
         <Col sm={8} className='d-flex justify-content-center '>
           <InputGroup className="my-2">
             <Form.Control
+              onChange={(e) => {setSearchInput(e.target.value)}}
               placeholder="Search by name"
               aria-label="Search by name"
               aria-describedby="basic-addon2"
             />
-            <Button variant="dark" id="button-addon2" className='bg-black' >
-              Search
-            </Button>
           </InputGroup>
         </Col>
         <CreateItem settoggleForUpdate={settoggleForUpdate}/>

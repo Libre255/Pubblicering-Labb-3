@@ -15,6 +15,7 @@ const TableMain:React.FC = () => {
   const {todosList, setTodosList, settoggleForUpdate} = useTodos();
   const [showTodo, setShowTodo] = useState(false)
   const [SelectedTodo, setSelectedTodo] = useState<ITodos>();
+  const [SearchInput, setSearchInput] = useState<string>("");
 
   const onClickTodo = (_todo:ITodos)=>{
     setSelectedTodo(_todo);
@@ -35,13 +36,13 @@ const TableMain:React.FC = () => {
 
   return (
     <Container fluid="md" >
-      <TableMenu settoggleForUpdate={settoggleForUpdate} todosList={todosList}/>
+      <TableMenu settoggleForUpdate={settoggleForUpdate} todosList={todosList} setSearchInput={setSearchInput}/>
       <Row className='RowConfig'>
         <Col sm={8}>Name</Col>
         <Col>Done</Col>
         <Col>Actions</Col>
       </Row>
-      {todosList.map(todo => (
+      {todosList.filter(todo => todo.title.toLowerCase().includes(SearchInput.toLowerCase())).map(todo => (
         <React.Fragment key={todo.id}>
           <Row className='todos-rows' >
             <Col sm={8} className='todos-rows-col' onClick={()=>onClickTodo(todo)}>{todo.title}</Col>
