@@ -22,9 +22,7 @@ const CreateTodoForm:React.FC<Props> = ({CreateBtnStatus, setSubmitAction}) =>{
   }
 
   const Submit = async (values:any)=> {
-    const data = await axios.post("https://localhost:44305/api/SuperHero", values);
-    // const dataJson = await data.data;
-    // console.log(dataJson)
+    await axios.post(`${process.env.REACT_APP_ENDPOINT}/api/SuperHero`, values);
   }
 
   return (

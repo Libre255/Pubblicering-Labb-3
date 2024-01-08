@@ -27,7 +27,7 @@ const EditFormFormikConfig:React.FC<Props> = ({todo, SetEditBtnStatus, setSubmit
   }
 
   const Submit = async (values:ITodos)=> {
-    const data = await axios.put(`https://localhost:44305/api/SuperHero/${values.id}`, values);
+    const data = await axios.put(`${process.env.REACT_APP_ENDPOINT}/api/SuperHero/${values.id}`, values);
     const dataJson = await data.data;
     console.log(dataJson);
   }

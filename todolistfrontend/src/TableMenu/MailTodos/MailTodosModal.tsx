@@ -22,8 +22,7 @@ const MailTodosModal:React.FC<Props> = ({show, handleClose, todosList }) => {
   }
 
   const Submit = ()=>{
-    axios.post("LogicAppURL", todosList);
-    console.log(todosList);
+    axios.post(`${process.env.REACT_APP_LOGIC_APP_END_POINT}`, todosList);
   }
   const schema = yup.object().shape({email:yup.string().required()});
   const initialValues = {email:""};

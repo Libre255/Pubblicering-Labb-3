@@ -19,7 +19,7 @@ const EditFormInput: React.FC<Props> = (Props) => {
 
   useEffect(()=>{
     SetEditBtnStatus(isValid ? false : true);
-  }, [isValid]);
+  }, [isValid, SetEditBtnStatus]);
 
   return (
     <Form noValidate onSubmit={handleSubmit} id='create-form'>

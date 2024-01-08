@@ -22,7 +22,7 @@ const FormInputs: React.FC<Props> = (Props) => {
 
   useEffect(()=>{
     CreateBtnStatus(isValid ? false : true);
-  }, [isValid]);
+  }, [isValid, CreateBtnStatus]);
 
   return (
     <Form noValidate onSubmit={handleSubmit} id='create-form'>

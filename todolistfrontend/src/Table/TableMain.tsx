@@ -12,7 +12,7 @@ import { ITodos } from '../Data/ITodos'
 import axios from 'axios'
 
 const TableMain:React.FC = () => {
-  const {todosList, setTodosList, settoggleForUpdate} = useTodos();
+  const {todosList, settoggleForUpdate} = useTodos();
   const [showTodo, setShowTodo] = useState(false)
   const [SelectedTodo, setSelectedTodo] = useState<ITodos>();
   const [SearchInput, setSearchInput] = useState<string>("");
@@ -22,7 +22,7 @@ const TableMain:React.FC = () => {
     setShowTodo(true);
   }
   const onDeletIconClick = async (id:string)=>{
-    await axios.delete(`https://localhost:44305/api/SuperHero/${id}`);
+    await axios.delete(`${process.env.REACT_APP_ENDPOINT}/api/SuperHero/${id}`);
     settoggleForUpdate(t => !t);
   }
   const onDoneCheck = async (todo:ITodos, done:boolean)=>{
@@ -30,7 +30,7 @@ const TableMain:React.FC = () => {
       ...todo,
       done
     }
-    await axios.put(`https://localhost:44305/api/SuperHero/${todo.id}`, UpdateDoneTodo);
+    await axios.put(`${process.env.REACT_APP_ENDPOINT}/api/SuperHero/${todo.id}`, UpdateDoneTodo);
     settoggleForUpdate(t => !t);
   }
 
