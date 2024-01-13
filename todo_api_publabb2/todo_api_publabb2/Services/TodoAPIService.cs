@@ -31,7 +31,7 @@ namespace todo_api_publabb2.Services
             return response.Resource;
         }
 
-        public async Task<List<Todo>?> DeleteTodo(int id)
+        public async Task<List<Todo>?> DeleteTodo(string id)
         {
             await _context.DeleteItemAsync<Todo>(id.ToString(), new PartitionKey(id.ToString()));
             var result = await GetAllTodos();
@@ -47,14 +47,14 @@ namespace todo_api_publabb2.Services
             return results;
         }
 
-        public async Task<Todo?> GetSingleTodo(int id)
+        public async Task<Todo?> GetSingleTodo(string id)
         {
             var response = await _context.ReadItemAsync<Todo>(id.ToString(), new PartitionKey(id.ToString()));
 
             return response.Resource;
         }
 
-        public async Task<List<Todo>?> UpdateTodo(int id, Todo request)
+        public async Task<List<Todo>?> UpdateTodo(string id, Todo request)
         {
             List<PatchOperation> operations = new()
             {
@@ -72,28 +72,7 @@ namespace todo_api_publabb2.Services
             var result = await GetAllTodos();
             return result.ToList();
         }
-        public async void AddSeed()
-        {
-            List<Todo> SeedTodo = new()
-            {
-                new Todo{id = "1", content = "First Todo", title = "The One", done = true },
-                new Todo{id = "2", content = "Second Todo", title = "The Second", done = true },
-                new Todo{id = "3", content = "Third Todo", title = "The Third", done = true }
-            };
-            foreach(Todo T in SeedTodo)
-            {
-                try
-                {
-                    var recipeResponse = await _context.ReadItemAsync<Todo>(T.id, new PartitionKey(T.id));
-                    Console.WriteLine($"Item id {recipeResponse.Resource.id} already exists");
-                }
-                catch (CosmosException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
-                {
-                    await _context.CreateItemAsync<Todo>(item: T, new PartitionKey(T.id));
-
-                }
-            }
-        }
+        
     }
 }
 

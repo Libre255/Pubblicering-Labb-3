@@ -14,7 +14,6 @@ namespace todo_api_publabb2.Controllers
         public SuperHeroController(ITodosAPI<Todo> todoService)
         {
             _todo_service = todoService;
-            _todo_service.AddSeed();
         }
 
         [HttpGet]
@@ -25,7 +24,7 @@ namespace todo_api_publabb2.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Todo>> GetSingleTodo(int id)
+        public async Task<ActionResult<Todo>> GetSingleTodo(string id)
         {
             var result = await _todo_service.GetSingleTodo(id);
             if (result is null)
@@ -48,7 +47,7 @@ namespace todo_api_publabb2.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<List<Todo>>> UpdateTodo(int id, Todo request)
+        public async Task<ActionResult<List<Todo>>> UpdateTodo(string id, Todo request)
         {
             var result = await _todo_service.UpdateTodo(id, request);
             if (result is null)
@@ -58,7 +57,7 @@ namespace todo_api_publabb2.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<List<Todo>>> DeleteTodo(int id)
+        public async Task<ActionResult<List<Todo>>> DeleteTodo(string id)
         {
             var result = await _todo_service.DeleteTodo(id);
             if (result is null)
