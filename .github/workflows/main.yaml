@@ -10,8 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./todo_api_publabb2/todo_api_pubblabb2
+        working-directory: /todo_api_publabb2/todo_api_pubblabb2
     steps:
+      - name: test directory
+        run: echo "$PWD"
       - name: Create env file for .NET API
         run: touch .env
       - name: Add variables for .NET API
@@ -24,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./todolistfrontend
+        working-directory: /todolistfrontend
     steps:
       - name: Create env file for FrontEnd
         run: touch .env
