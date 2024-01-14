@@ -6,16 +6,13 @@ on:
       - main
 
 jobs:
-  Include-env-file-for-API:
+  build-API:
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./todo_api_publabb2/todo_api_publabb2
     steps:
       - uses: actions/checkout@v4
-
-      - name: test directory
-        run: echo "$PWD"
 
       - name: Create env file for .NET API
         run: touch .env
@@ -26,18 +23,63 @@ jobs:
           echo KEY=${{secrets.KEY}} >> .env
           echo DATABASE=${{secrets.DATABASE}} >> .env
           echo CONTAINER=${{secrets.CONTAINER}} >> .env
-  Include-env-file-for-FRONTEND:
+      
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7
+      
+      - name: Set Up dependency caching for faster builds
+        uses: actions/cache@v3
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
+      - name: Build with dotnet
+        run: dotnet build todo_api_publabb2.csproj -c Release
+      
+      - name: dotnet publish
+        run: dotnet publish todo_api_publabb2.csproj -c Release -o ./API_publish
+      
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v4
+        with:
+          name: .net-app
+          path: ./API_publish
+        
+  build-FRONTEND:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: /todolistfrontend
+        working-directory: ./todolistfrontend
     steps:
+      - uses: actions/checkout@v4
+
       - name: Create env file for FrontEnd
         run: touch .env
 
-      - name: Add variables for FrontEnd
+      - name: Add variable for FrontEnd
+        run: echo REACT_APP_ENDPOINT=${{secrets.API_ENDPOINT}} >> .env
+      
+      - name: Set Up Node.js
+        uses: actions/setup-node@v4
+        with: 
+          node-version: 16.x
+          cache: 'npm'
+      
+      - name: npm install and build
         run: |
-          echo REACT_APP_ENDPOINT=${{secrets.API_ENDPOINT}}
+         npm i
+         npm run build
+      
+      - name: Upload Artifact for deployment job
+        uses: actions/upload-artifact@v4
+        with:
+          name: node-app
+          path: .
+        
   
 
 
