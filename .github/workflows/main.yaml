@@ -12,10 +12,14 @@ jobs:
       run:
         working-directory: /todo_api_publabb2/todo_api_pubblabb2
     steps:
+      - uses: actions/checkout@v4
+
       - name: test directory
         run: echo "$PWD"
+
       - name: Create env file for .NET API
         run: touch .env
+
       - name: Add variables for .NET API
         run: |
           echo ENDPOINT=${{secrets.COMOS_ENDPOINT}} >> .env
@@ -30,6 +34,7 @@ jobs:
     steps:
       - name: Create env file for FrontEnd
         run: touch .env
+
       - name: Add variables for FrontEnd
         run: |
           echo REACT_APP_ENDPOINT=${{secrets.API_ENDPOINT}}
