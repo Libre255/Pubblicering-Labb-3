@@ -46,7 +46,7 @@ jobs:
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
-          name: dotnet_api
+          name: .net-app
           path: ./API_publish
         
   build-FRONTEND:
@@ -78,7 +78,7 @@ jobs:
       - name: Upload Artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
-          name: react_app
+          name: node-app
           path: ./build
   deployToWebbApp:
     needs: [build-API, build-FRONTEND]
