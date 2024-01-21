@@ -46,7 +46,7 @@ jobs:
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
-          name: dotnet_app
+          name: dotnet_api
           path: ./todo_api_publabb2/todo_api_publabb2/API_publish
         
   build-FRONTEND:
