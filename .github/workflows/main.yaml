@@ -87,15 +87,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download .NET Artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: dotnet_api
-
       - name: Download React Artifact
         uses: actions/download-artifact@v4
         with: 
           name: frontend_app
+
+      - name: Download .NET Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dotnet_api
 
       - name: Deploy to Azure App Service
         uses: azure/webapps-deploy@v2
