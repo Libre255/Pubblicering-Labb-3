@@ -29,13 +29,8 @@ jobs:
         with:
           dotnet-version: 7
       
-      - name: Set Up dependency caching for faster builds
-        uses: actions/cache@v3
-        with:
-          path: ~/.nuget/packages
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-nuget-
+      - name: Restore .NET APP
+        run: dotnet restore todo_api_publabb2.csproj
 
       - name: Build with dotnet
         run: dotnet build todo_api_publabb2.csproj -c Release
@@ -50,6 +45,7 @@ jobs:
           path: ./todo_api_publabb2/todo_api_publabb2/API_publish
         
   build-FRONTEND:
+    needs: [build-API]
     runs-on: ubuntu-latest
     defaults:
       run:
