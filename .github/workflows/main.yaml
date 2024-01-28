@@ -19,75 +19,8 @@ jobs:
 
       - uses: azure/webapps-deploy@v2
         with:
-          app-name: testga-bv
+          app-name: testapibv
           publish-profile: ${{ secrets.AZURE_WEBB_PUBLISH_PROFILE }}
           images: |
             docker.io/libre255/testapibrian:2.0
-  # docker.io/libre255/frontendlabb3:1.0
-        
-  # build-FRONTEND:
-  #   needs: [build-API]
-  #   runs-on: ubuntu-latest
-  #   defaults:
-  #     run:
-  #       working-directory: ./todolistfrontend
-  #   steps:
-  #     - uses: actions/checkout@v4
-
-  #     - name: Create env file for FrontEnd
-  #       run: touch .env
-
-  #     - name: Add variable for FrontEnd
-  #       run: echo REACT_APP_ENDPOINT= >> .env
-      
-  #     - name: Set Up Node.js
-  #       uses: actions/setup-node@v4
-  #       with: 
-  #         node-version: '16.x'
-  #         cache: 'npm'
-  #         cache-dependency-path: ./todolistfrontend/package-lock.json
-      
-  #     - name: npm install and build
-  #       run: |
-  #        npm i
-  #        npm run build
-      
-  #     - name: Upload Artifact for deployment job
-  #       uses: actions/upload-artifact@v4
-  #       with:
-  #         name: frontend_app
-  #         path: ./todolistfrontend/build
-
-  # deployToWebbApp:
-  #   needs: [build-API, build-FRONTEND]
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v4
-
-  #     - name: Download React Artifact
-  #       uses: actions/download-artifact@v4
-  #       with: 
-  #         name: frontend_app
-
-  #     - name: Download .NET Artifact
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         name: dotnet_api
-
-  #     - name: Deploy to Azure App Service
-  #       uses: azure/webapps-deploy@v2
-  #       with:
-  #         app-name: todo-webb-app-bv
-  #         publish-profile: 
-  #         package: |
-  #           ./DotNetAPI
-  #           ./react-app
-
-
-        
-
-        
-  
-
-
-
+          
