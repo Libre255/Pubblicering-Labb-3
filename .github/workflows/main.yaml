@@ -8,99 +8,79 @@ on:
 jobs:
   build-API:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./todo_api_publabb2/todo_api_publabb2
     steps:
       - uses: actions/checkout@v4
 
-      - name: Create env file for .NET API
-        run: touch .env
-
-      - name: Add variables for .NET API
-        run: |
-          echo ENDPOINT=${{secrets.COMOS_ENDPOINT}} >> .env
-          echo KEY=${{secrets.KEY}} >> .env
-          echo DATABASE=${{secrets.DATABASE}} >> .env
-          echo CONTAINER=${{secrets.CONTAINER}} >> .env
-      
-      - name: Set up .NET Core
-        uses: actions/setup-dotnet@v3
+      - uses: azure/docker-login@v1
         with:
-          dotnet-version: 7
-      
-      - name: Restore .NET APP
-        run: dotnet restore todo_api_publabb2.csproj
+          login-server: docker.io/libre255
+          username: ${{ secrets.D_USER_NAME}}
+          password: ${{ secrets.D_PASSWORD}}
 
-      - name: Build with dotnet
-        run: dotnet build todo_api_publabb2.csproj -c Release
-      
-      - name: dotnet publish
-        run: dotnet publish todo_api_publabb2.csproj -c Release -o ./API_publish
-      
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v4
+      - uses: azure/webapps-deploy@v2
         with:
-          name: dotnet_api
-          path: ./todo_api_publabb2/todo_api_publabb2/API_publish
+          app-name: testga-bv
+          publish-profile: ${{ secrets.AZURE_WEBB_PUBLISH_PROFILE }}
+          images: |
+            docker.io/libre255/frontendlabb3:1.0
         
-  build-FRONTEND:
-    needs: [build-API]
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./todolistfrontend
-    steps:
-      - uses: actions/checkout@v4
+  # build-FRONTEND:
+  #   needs: [build-API]
+  #   runs-on: ubuntu-latest
+  #   defaults:
+  #     run:
+  #       working-directory: ./todolistfrontend
+  #   steps:
+  #     - uses: actions/checkout@v4
 
-      - name: Create env file for FrontEnd
-        run: touch .env
+  #     - name: Create env file for FrontEnd
+  #       run: touch .env
 
-      - name: Add variable for FrontEnd
-        run: echo REACT_APP_ENDPOINT=${{secrets.API_ENDPOINT}} >> .env
+  #     - name: Add variable for FrontEnd
+  #       run: echo REACT_APP_ENDPOINT= >> .env
       
-      - name: Set Up Node.js
-        uses: actions/setup-node@v4
-        with: 
-          node-version: '16.x'
-          cache: 'npm'
-          cache-dependency-path: ./todolistfrontend/package-lock.json
+  #     - name: Set Up Node.js
+  #       uses: actions/setup-node@v4
+  #       with: 
+  #         node-version: '16.x'
+  #         cache: 'npm'
+  #         cache-dependency-path: ./todolistfrontend/package-lock.json
       
-      - name: npm install and build
-        run: |
-         npm i
-         npm run build
+  #     - name: npm install and build
+  #       run: |
+  #        npm i
+  #        npm run build
       
-      - name: Upload Artifact for deployment job
-        uses: actions/upload-artifact@v4
-        with:
-          name: frontend_app
-          path: ./todolistfrontend/build
+  #     - name: Upload Artifact for deployment job
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: frontend_app
+  #         path: ./todolistfrontend/build
 
-  deployToWebbApp:
-    needs: [build-API, build-FRONTEND]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+  # deployToWebbApp:
+  #   needs: [build-API, build-FRONTEND]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
 
-      - name: Download React Artifact
-        uses: actions/download-artifact@v4
-        with: 
-          name: frontend_app
+  #     - name: Download React Artifact
+  #       uses: actions/download-artifact@v4
+  #       with: 
+  #         name: frontend_app
 
-      - name: Download .NET Artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: dotnet_api
+  #     - name: Download .NET Artifact
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         name: dotnet_api
 
-      - name: Deploy to Azure App Service
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: todo-webb-app-bv
-          publish-profile: ${{secrets.AZURE_WEBAPP_PUBLISH_PROFILE}}
-          package: |
-            ./DotNetAPI
-            ./react-app
+  #     - name: Deploy to Azure App Service
+  #       uses: azure/webapps-deploy@v2
+  #       with:
+  #         app-name: todo-webb-app-bv
+  #         publish-profile: 
+  #         package: |
+  #           ./DotNetAPI
+  #           ./react-app
 
 
         
