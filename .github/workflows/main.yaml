@@ -22,8 +22,8 @@ jobs:
           app-name: testga-bv
           publish-profile: ${{ secrets.AZURE_WEBB_PUBLISH_PROFILE }}
           images: |
-            docker.io/libre255/testapibrian:2.0
-            
+            docker.io/libre255/frontendlabb3:1.0
+# docker.io/libre255/testapibrian:2.0
         
   # build-FRONTEND:
   #   needs: [build-API]
