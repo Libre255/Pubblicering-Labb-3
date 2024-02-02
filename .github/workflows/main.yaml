@@ -1,4 +1,4 @@
-name: Deploy React and ASP.NET API into Azure App Service
+name: DeployBV
 
 on:
   push:
