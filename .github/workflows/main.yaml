@@ -6,20 +6,73 @@ on:
       - main
 
 jobs:
-  build-API:
+  # build-API:
+  #   runs-on: ubuntu-latest
+  #   defaults:
+  #     run:
+  #       working-directory: ./todo_api_publabb2/todo_api_publabb2
+  #   steps:
+  #     - uses: actions/checkout@v4
+
+  #     - uses: azure/docker-login@v1
+  #       with:
+  #         login-server: docker.io/libre255
+  #         username: ${{ secrets.D_USER_NAME}}
+  #         password: ${{ secrets.D_PASSWORD}}
+
+  #     - name: Create env file for .NET API
+  #       run: touch .env
+
+  #     - name: Add variables for .NET API
+  #       run: |
+  #         echo ENDPOINT=${{secrets.COMOS_ENDPOINT}} >> .env
+  #         echo KEY=${{secrets.KEY}} >> .env
+  #         echo DATABASE=${{secrets.DATABASE}} >> .env
+  #         echo CONTAINER=${{secrets.CONTAINER}} >> .env
+
+  #     - run:
+  #         docker build -t libre255/todoapi:${{ github.sha }} .
+  #         docker push libre255/todoapi:${{ github.sha }}
+
+  # build-push-FRONTEND:
+  #   runs-on: ubuntu-latest
+  #   defaults:
+  #     run:
+  #       working-directory: ./todolistfrontend
+  #   steps:
+  #     - uses: actions/checkout@v4
+
+  #     - uses: azure/docker-login@v1
+  #       with:
+  #         login-server: docker.io/libre255
+  #         username: ${{ secrets.D_USER_NAME}}
+  #         password: ${{ secrets.D_PASSWORD}}
+      
+  #     - name: Create env file for FrontEnd
+  #       run: touch .env
+
+  #     - name: Add variable for FrontEnd
+  #       run: echo REACT_APP_ENDPOINT=${{secrets.API_ENDPOINT}} >> .env
+
+  #     - run:
+  #         docker build -t libre255/frontendlabb3:${{ github.sha}} .
+  #         docker push libre255/frontendlabb3:${{ github.sha}}
+
+  deployApps:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
-      - uses: azure/docker-login@v1
-        with:
-          login-server: docker.io/libre255
-          username: ${{ secrets.D_USER_NAME}}
-          password: ${{ secrets.D_PASSWORD}}
+    - uses: azure/docker-login@v1
+      with:
+        login-server: docker.io/libre255
+        username: ${{ secrets.D_USER_NAME}}
+        password: ${{ secrets.D_PASSWORD}}
 
-      - uses: azure/webapps-deploy@v2
-        with:
-          app-name: testapibv
-          publish-profile: ${{ secrets.AZURE_WEBB_PUBLISH_PROFILE }}
-          images: |
-            docker.io/libre255/testapibrian:2.0
+    - uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'todo-webb-app-bv'
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        images: |
+          docker.io/libre255/testapibrian:2.0
+          docker.io/libre255/frontendlabb3:1.0
