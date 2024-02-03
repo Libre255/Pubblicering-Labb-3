@@ -30,7 +30,7 @@ jobs:
           echo DATABASE=${{secrets.DATABASE}} >> .env
           echo CONTAINER=${{secrets.CONTAINER}} >> .env
 
-      - run:
+      - run: |
           docker build -t libre255/todoapi:${{ github.sha }} .
           docker push libre255/todoapi:${{ github.sha }}
 
