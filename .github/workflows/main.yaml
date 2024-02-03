@@ -35,7 +35,7 @@ jobs:
           context: .
           file: ./todo_api_publabb2/todo_api_publabb2/Dockerfile
           push: true
-          tags: ${{ github.sha }}
+          tags: docker.io/libre255/todoapi:${{ github.sha }}
 
       # - run: |
       #     docker build -t libre255/todoapi:${{ github.sha }} .
