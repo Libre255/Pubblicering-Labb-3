@@ -9,8 +9,8 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["todo_api_publabb2.csproj", "todoapi/"]
 RUN dotnet restore "todoapi/todo_api_publabb2.csproj"
-COPY . "/todoapi"
-WORKDIR "/src/todoapi"
+COPY . todoapi/
+WORKDIR /src/todoapi
 RUN dotnet build "todo_api_publabb2.csproj" -c Release -o /app/build
 
 FROM build AS publish
