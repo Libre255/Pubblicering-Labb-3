@@ -34,7 +34,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: ./Dockerfile
+          file: ./todo_api_publabb2/todo_api_publabb2/Dockerfile
           push: true
           tags: ${{ github.sha }}
 
