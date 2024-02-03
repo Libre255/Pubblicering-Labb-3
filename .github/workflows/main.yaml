@@ -14,12 +14,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: azure/docker-login@v1
-        with:
-          login-server: docker.io/libre255
-          username: ${{ secrets.D_USER_NAME}}
-          password: ${{ secrets.D_PASSWORD}}
-
       - name: Create env file for .NET API
         run: touch .env
 
@@ -30,9 +24,21 @@ jobs:
           echo DATABASE=${{secrets.DATABASE}} >> .env
           echo CONTAINER=${{secrets.CONTAINER}} >> .env
 
-      - run: |
-          docker build -t libre255/todoapi:${{ github.sha }} .
-          docker push libre255/todoapi:${{ github.sha }}
+      - uses: azure/docker-login@v1
+        with:
+          login-server: docker.io/libre255
+          username: ${{ secrets.D_USER_NAME}}
+          password: ${{ secrets.D_PASSWORD}}
+      
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: ${{ github.sha }}
+
+      # - run: |
+      #     docker build -t libre255/todoapi:${{ github.sha }} .
+      #     docker push libre255/todoapi:${{ github.sha }}
 
   # build-push-FRONTEND:
   #   runs-on: ubuntu-latest
