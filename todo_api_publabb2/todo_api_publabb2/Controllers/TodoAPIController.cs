@@ -5,7 +5,7 @@ using todo_api_publabb2.Services;
 
 namespace todo_api_publabb2.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("todoapi")]
     [ApiController]
     public class SuperHeroController : ControllerBase
     {
