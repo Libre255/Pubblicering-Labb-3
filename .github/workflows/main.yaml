@@ -9,7 +9,7 @@ env:
   apiImageName: libre255/todoapi
 
 jobs:
-  build-API:
+  buildpush-API:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -40,8 +40,9 @@ jobs:
           push: true
           tags: docker.io/$apiImageName:${{ github.sha }}
 
-  build-push-FRONTEND:
+  buildpush-FRONTEND:
     runs-on: ubuntu-latest
+    needs: buildpush-API
     defaults:
       run:
         working-directory: ./todolistfrontend
@@ -67,6 +68,7 @@ jobs:
 
   deployApps:
     runs-on: ubuntu-latest
+    needs: buildpush-FRONTEND
     steps:
     - uses: actions/checkout@v4
 
