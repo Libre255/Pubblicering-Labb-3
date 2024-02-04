@@ -11,9 +11,9 @@ env:
 jobs:
   buildpush-API:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./testapibv/testapibv
+    # defaults:
+    #   run:
+    #     working-directory: ./testapibv/testapibv
     steps:
       - uses: actions/checkout@v4
 
@@ -33,7 +33,7 @@ jobs:
           password: ${{ secrets.D_PASSWORD}}
       
       - name: docker build API
-        run: docker build -t ${{env.apiImageName}}:${{ github.sha}} .
+        run: docker build -t ${{env.apiImageName}}:${{ github.sha}} ./todo_api_publabb2/todo_api_publabb2
   
       - name: docker push API
         run: docker push ${{env.apiImageName}}:${{ github.sha}}
