@@ -38,7 +38,7 @@ jobs:
           context: .
           file: ./todo_api_publabb2/todo_api_publabb2/Dockerfile
           push: true
-          tags: docker.io/$apiImageName:${{ github.sha }}
+          tags: docker.io/${{env.apiImageName}}:${{ github.sha }}
 
   buildpush-FRONTEND:
     runs-on: ubuntu-latest
@@ -61,10 +61,10 @@ jobs:
           password: ${{ secrets.D_PASSWORD}}
 
       - name: docker build Frontend
-        run: docker build -t $frontendImageName:${{ github.sha}} .
+        run: docker build -t ${{env.frontendImageName}}:${{ github.sha}} .
       
       - name: docker push Frontend
-        run: docker push $frontendImageName:${{ github.sha}}
+        run: docker push ${{env.frontendImageName}}:${{ github.sha}}
 
   deployApps:
     runs-on: ubuntu-latest
@@ -81,7 +81,7 @@ jobs:
       with:
         app-name: 'testappserivive'
         publish-profile: ${{ secrets.AZURE_WEBB_PUBLISH_PROFILE }}
-        images: docker.io/$frontendImageName:${{ github.sha}}
+        images: docker.io/${{env.frontendImageName}}:${{ github.sha}}
     
     # - uses: azure/webapps-deploy@v2
     #   with:
