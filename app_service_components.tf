@@ -15,7 +15,7 @@ resource "azurerm_linux_web_app" "todo-frontend" {
 
   site_config {
     application_stack {
-      node_version = "16.18"
+      node_version = "16-lts"
     }
   }
 
@@ -33,7 +33,7 @@ resource "azurerm_linux_web_app" "todo-frontend" {
 
 resource "azurerm_linux_web_app_slot" "todo-frontend-slot" {
   name           = "todo-frontend-slot-bv"
-  app_service_id = azurerm_linux_web_app.webb-app.id
+  app_service_id = azurerm_linux_web_app.todo-frontend.id
 
   identity {
     type = "SystemAssigned"
@@ -41,11 +41,11 @@ resource "azurerm_linux_web_app_slot" "todo-frontend-slot" {
 
   site_config {
     application_stack {
-      node_version = "16.18"
+      node_version = "16-lts"
     }
   }
 
-  depends_on = [azurerm_linux_web_app.webb-app]
+  depends_on = [azurerm_linux_web_app.todo-frontend]
 }
 
 resource "azurerm_linux_web_app" "todo-backend" {
