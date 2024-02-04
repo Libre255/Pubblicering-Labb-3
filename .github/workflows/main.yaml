@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+env:
+  frontendImageName: libre255/todofrontend
+  apiImageName: libre255/todoapi
 
 jobs:
   build-API:
@@ -20,7 +23,7 @@ jobs:
       - name: Add variables for .NET API
         run: |
           echo ENDPOINT=${{secrets.COMOS_ENDPOINT}} >> .env
-          echo KEY=${{secrets.KEY}} >> .env
+          echo KEY=${{secrets.COSMOSKEY}} >> .env
           echo DATABASE=${{secrets.DATABASE}} >> .env
           echo CONTAINER=${{secrets.CONTAINER}} >> .env
 
@@ -35,7 +38,7 @@ jobs:
           context: .
           file: ./todo_api_publabb2/todo_api_publabb2/Dockerfile
           push: true
-          tags: docker.io/libre255/todoapi:${{ github.sha }}
+          tags: docker.io/$apiImageName:${{ github.sha }}
 
   build-push-FRONTEND:
     runs-on: ubuntu-latest
@@ -57,32 +60,31 @@ jobs:
           password: ${{ secrets.D_PASSWORD}}
 
       - name: docker build Frontend
-        run: docker build -t libre255/todofrontend:${{ github.sha}} .
+        run: docker build -t $frontendImageName:${{ github.sha}} .
       
       - name: docker push Frontend
-        run: docker push libre255/todofrontend:${{ github.sha}}
+        run: docker push $frontendImageName:${{ github.sha}}
 
-  # deployApps:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - uses: actions/checkout@v4
+  deployApps:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
 
-  #   - uses: azure/docker-login@v1
-  #     with:
-  #       login-server: docker.io/libre255
-  #       username: ${{ secrets.D_USER_NAME}}
-  #       password: ${{ secrets.D_PASSWORD}}
+    - uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.D_USER_NAME}}
+        password: ${{ secrets.D_PASSWORD}}
 
-  #   - uses: azure/webapps-deploy@v2
-  #     with:
-  #       app-name: 'todo-frontend-bv'
-  #       publish-profile: ${{ secrets.frontend_pf }}
-  #       images: docker.io/libre255/todofrontend:${{ github.sha}}
+    - uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'testappserivive'
+        publish-profile: ${{ secrets.AZURE_WEBB_PUBLISH_PROFILE }}
+        images: docker.io/$frontendImageName:${{ github.sha}}
     
-  #   - uses: azure/webapps-deploy@v2
-  #     with:
-  #       app-name: 'todo-backend-bv'
-  #       publish-profile: ${{ secrets.backend_pf }}
-  #       images: docker.io/libre255/todoapi:${{ github.sha }}
+    # - uses: azure/webapps-deploy@v2
+    #   with:
+    #     app-name: 'todo-backend-bv'
+    #     publish-profile: ${{ secrets.backend_pf }}
+    #     images: docker.io/$apiImageName:${{ github.sha }}
     
           
