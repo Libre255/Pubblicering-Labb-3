@@ -80,13 +80,13 @@ jobs:
     - uses: azure/webapps-deploy@v2
       with:
         app-name: 'todo-frontend-bv'
-        publish-profile: ${{ secrets.AZURE_WEBB_PUBLISH_PROFILE }}
+        publish-profile: ${{ secrets.FRONTEND_PF }}
         images: docker.io/${{env.frontendImageName}}:${{ github.sha}}
     
     - uses: azure/webapps-deploy@v2
       with:
         app-name: 'todo-backend-bv'
-        publish-profile: ${{ secrets.backend_pf }}
+        publish-profile: ${{ secrets.BACKEND_PF }}
         images: docker.io/$apiImageName:${{ github.sha }}
     
           
