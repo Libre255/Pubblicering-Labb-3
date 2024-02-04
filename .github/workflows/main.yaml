@@ -37,33 +37,28 @@ jobs:
           push: true
           tags: docker.io/libre255/todoapi:${{ github.sha }}
 
-      # - run: |
-      #     docker build -t libre255/todoapi:${{ github.sha }} .
-      #     docker push libre255/todoapi:${{ github.sha }}
-
-  # build-push-FRONTEND:
-  #   runs-on: ubuntu-latest
-  #   defaults:
-  #     run:
-  #       working-directory: ./todolistfrontend
-  #   steps:
-  #     - uses: actions/checkout@v4
-
-  #     - uses: azure/docker-login@v1
-  #       with:
-  #         login-server: docker.io/libre255
-  #         username: ${{ secrets.D_USER_NAME}}
-  #         password: ${{ secrets.D_PASSWORD}}
+  build-push-FRONTEND:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./todolistfrontend
+    steps:
+      - uses: actions/checkout@v4
       
-  #     - name: Create env file for FrontEnd
-  #       run: touch .env
+      - name: Create env file for FrontEnd
+        run: touch .env
 
-  #     - name: Add variable for FrontEnd
-  #       run: echo REACT_APP_ENDPOINT=${{secrets.API_ENDPOINT}} >> .env
+      - name: Add variable for FrontEnd
+        run: echo REACT_APP_ENDPOINT=${{secrets.API_ENDPOINT}} >> .env
+      
+      - uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.D_USER_NAME}}
+          password: ${{ secrets.D_PASSWORD}}
 
-  #     - run:
-  #         docker build -t libre255/frontendlabb3:${{ github.sha}} .
-  #         docker push libre255/frontendlabb3:${{ github.sha}}
+      - run:
+          docker build -t libre255/frontendlabb3:${{ github.sha}} .
+          docker push libre255/frontendlabb3:${{ github.sha}}
 
   # deployApps:
   #   runs-on: ubuntu-latest
