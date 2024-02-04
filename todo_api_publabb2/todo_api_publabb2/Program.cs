@@ -23,7 +23,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ITodosAPI<Todo>>(x => {
-return new TodoAPIService(CosmosENDPOINT, CosmosKEY, CosmosDATABASE, CosmosCONTAINER);
+return new TodoAPIService(CosmosENDPOINT!, CosmosKEY!, CosmosDATABASE!, CosmosCONTAINER!);
 });
 
 var app = builder.Build();
@@ -36,7 +36,7 @@ app.UseCors(policyName);
 app.UseAuthorization();
 app.MapControllers();
 
-MockData MockDataContainer = new(CosmosENDPOINT, CosmosKEY, CosmosDATABASE, CosmosCONTAINER);
-await MockDataContainer.AddMockData();
+//MockData MockDataContainer = new(CosmosENDPOINT!, CosmosKEY!, CosmosDATABASE!, CosmosCONTAINER!);
+//await MockDataContainer.AddMockData();
 
 app.Run();

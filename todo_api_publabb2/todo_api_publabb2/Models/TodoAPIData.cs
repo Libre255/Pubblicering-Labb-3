@@ -2,8 +2,8 @@
 {
     public class TodoAPIData
     {
-        public string title { get; set; }
-        public string content { get; set; }
+        public string title { get; set; } = string.Empty;
+        public string content { get; set; } = string.Empty;
         public bool done { get; set; }
     }
 }
