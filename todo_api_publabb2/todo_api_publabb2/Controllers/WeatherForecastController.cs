@@ -15,7 +15,7 @@ namespace todo_api_publabb2.Controllers
     {
         private static readonly string[] Summaries = new[]
         {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+            "Goku","Goku","Goku","Goku","Goku","Goku","Goku"
     };
 
         private readonly ILogger<WeatherForecastController> _logger;

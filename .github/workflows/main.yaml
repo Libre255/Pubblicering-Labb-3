@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./todo_api_publabb2/todo_api_publabb2
+        working-directory: ./testapibv/testapibv
     steps:
       - uses: actions/checkout@v4
 
