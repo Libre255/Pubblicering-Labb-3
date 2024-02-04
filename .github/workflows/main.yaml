@@ -57,10 +57,10 @@ jobs:
           password: ${{ secrets.D_PASSWORD}}
 
       - name: docker build Frontend
-        run: docker build -t libre255/frontendlabb3:${{ github.sha}} .
+        run: docker build -t libre255/todofrontend:${{ github.sha}} .
       
       - name: docker push Frontend
-        run: docker push libre255/frontendlabb3:${{ github.sha}}
+        run: docker push libre255/todofrontend:${{ github.sha}}
 
   # deployApps:
   #   runs-on: ubuntu-latest
