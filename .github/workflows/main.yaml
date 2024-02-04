@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./todo_api_publabb2/todo_api_publabb2
+        working-directory: ./testapibv/testapibv
     steps:
       - uses: actions/checkout@v4
 
@@ -32,13 +32,19 @@ jobs:
           username: ${{ secrets.D_USER_NAME}}
           password: ${{ secrets.D_PASSWORD}}
       
-      - name: Build and push
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: ./todo_api_publabb2/todo_api_publabb2/Dockerfile
-          push: true
-          tags: docker.io/${{env.apiImageName}}:${{ github.sha }}
+      - name: docker build API
+        run: docker build -t ${{env.apiImageName}}:${{ github.sha}} .
+  
+      - name: docker push API
+        run: docker push ${{env.apiImageName}}:${{ github.sha}}
+      
+      # - name: Build and push
+      #   uses: docker/build-push-action@v5
+      #   with:
+      #     context: .
+      #     file: ./todo_api_publabb2/todo_api_publabb2/Dockerfile
+      #     push: true
+      #     tags: docker.io/${{env.apiImageName}}:${{ github.sha }}
 
   buildpush-FRONTEND:
     runs-on: ubuntu-latest
@@ -88,6 +94,6 @@ jobs:
         app-name: 'todo-backend-bv'
         publish-profile: ${{ secrets.BACKEND_PF }}
         images: docker.io/${{env.apiImageName}}:${{ github.sha }}
-        
+
     
           
