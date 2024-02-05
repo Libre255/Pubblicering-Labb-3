@@ -22,7 +22,7 @@ const CreateTodoForm:React.FC<Props> = ({CreateBtnStatus, setSubmitAction}) =>{
   }
 
   const Submit = async (values:any)=> {
-    await axios.post(`${process.env.REACT_APP_ENDPOINT}/api/SuperHero`, values);
+    await axios.post(`${process.env.REACT_APP_ENDPOINT}`, values);
   }
 
   return (
