@@ -161,7 +161,7 @@ resource "azurerm_logic_app_action_custom" "todo-list-concat-format" {
 
   body = <<BODY
   {
-    "foreach": "@body('read-http-reponse-bv')?['TodoList']",
+    "foreach": "@body('read-http-reponse-bv')?['TodosList']",
     "actions": {
       "Append_to_string_variable": {
         "type": "AppendToStringVariable",
