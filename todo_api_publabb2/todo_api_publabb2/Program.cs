@@ -14,7 +14,7 @@ string policyName = "ReactPolicy";
 builder.Services.AddCors(policy =>
 {
     policy.AddPolicy(name: policyName, p => {
-        p.WithOrigins("http://localhost:3000")
+        p.WithOrigins("https://todo-frontend-bv.azurewebsites.net")
         .AllowAnyMethod()
         .AllowAnyHeader()
         .AllowCredentials();
