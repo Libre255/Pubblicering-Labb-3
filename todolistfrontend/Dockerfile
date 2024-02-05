@@ -6,6 +6,8 @@ COPY package-lock.json ./
 RUN npm ci --silent
 RUN npm install react-scripts -g --silent
 COPY . ./
+RUN touch .env
+RUN echo "REACT_APP_ENDPOINT=https://todo-backend-bv.azurewebsites.net/todoapi" >> .env
 RUN npm run build
 
 FROM nginx:stable-alpine
