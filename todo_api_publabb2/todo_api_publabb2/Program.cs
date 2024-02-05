@@ -2,12 +2,13 @@ global using todo_api_publabb2.Models;
 using todo_api_publabb2.Services;
 
 DotNetEnv.Env.Load();
-var CosmosKEY = Environment.GetEnvironmentVariable("KEY");
-var CosmosDATABASE = Environment.GetEnvironmentVariable("DATABASE");
-var CosmosCONTAINER = Environment.GetEnvironmentVariable("CONTAINER");
-var CosmosENDPOINT = Environment.GetEnvironmentVariable("ENDPOINT");
 
 var builder = WebApplication.CreateBuilder(args);
+
+var CosmosKEY = builder.Configuration.GetValue<string>("KEY");
+var CosmosDATABASE = builder.Configuration.GetValue<string>("DATABASE");
+var CosmosCONTAINER = builder.Configuration.GetValue<string>("CONTAINER");
+var CosmosENDPOINT = builder.Configuration.GetValue<string>("ENDPOINT");
 
 string policyName = "ReactPolicy";
 builder.Services.AddCors(policy =>

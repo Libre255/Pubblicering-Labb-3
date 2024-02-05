@@ -17,16 +17,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Create env file for .NET API
-        run: touch .env
-
-      - name: Add variables for .NET API
-        run: |
-          echo ENDPOINT=${{secrets.COMOS_ENDPOINT}} >> .env
-          echo KEY=${{secrets.COSMOSKEY}} >> .env
-          echo DATABASE=${{secrets.DATABASE}} >> .env
-          echo CONTAINER=${{secrets.CONTAINER}} >> .env
-
       - uses: docker/login-action@v3
         with:
           username: ${{ secrets.D_USER_NAME}}
@@ -46,12 +36,6 @@ jobs:
         working-directory: ./todolistfrontend
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Create env file for FrontEnd
-        run: touch .env
-
-      - name: Add variable for FrontEnd
-        run: echo REACT_APP_ENDPOINT=${{secrets.API_ENDPOINT}} >> .env
       
       - uses: docker/login-action@v3
         with:
